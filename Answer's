@@ -1,0 +1,31 @@
+**Medium Level Questions:**
+
+1. Retrieve all documents from the "customers" collection.
+-> db.customers.find();
+
+2. Find all customers from the "customers" collection who are from the city "Sal".
+-> db.customers.find({City:"Sal"})
+
+3. Find all films from the "films" collection with a rating of "PG-13".
+-> db.films.find({Rating:"PG-13"})
+
+4. Find the first 10 customers from the "customers" collection, sorted by their last name in ascending order.
+5. Find all films from the "films" collection with a length greater than 120 minutes.
+6. Find all customers from the "customers" collection who have rented a film with a replacement cost greater than $20.
+7. Find the total number of films in the "films" collection.
+8. Find all films from the "films" collection where the description contains the word "comedy" and the rating is "R".
+9. Find the top 5 customers who have rented the most films from the "customers" collection.
+10. Find all customers from the "customers" collection who have rented films with a rental duration of less than 3 days.
+
+**Hard Level Questions:**
+
+11. Find the average length of films in the "films" collection.
+12. Find all customers from the "customers" collection who have rented films from the "Comedy" category and the "PG" rating.
+13. Find all films from the "films" collection where at least one actor has the first name "Tom" or "John".
+14. Find the total number of unique cities represented in the "customers" collection.
+15. Find the 3rd and 4th oldest films from the "films" collection, sorted by their release year.
+16. Find all customers from the "customers" collection who have not rented any films.
+17. Find all films from the "films" collection where the special feature "Deleted Scenes" is included.
+18. Find all customers from the "customers" collection who have rented films with a rental duration of exactly 7 days and a rating of "G".
+19. Find the average replacement cost of films in the "films" collection with a length greater than 90 minutes.
+20. Find all films from the "films" collection where the description matches a pattern that starts with "Action" and ends with "thriller".

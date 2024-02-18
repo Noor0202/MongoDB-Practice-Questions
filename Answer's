@@ -10,13 +10,58 @@
 -> db.films.find({Rating:"PG-13"})
 
 4. Find the first 10 customers from the "customers" collection, sorted by their last name in ascending order.
-5. Find all films from the "films" collection with a length greater than 120 minutes.
-6. Find all customers from the "customers" collection who have rented a film with a replacement cost greater than $20.
-7. Find the total number of films in the "films" collection.
-8. Find all films from the "films" collection where the description contains the word "comedy" and the rating is "R".
-9. Find the top 5 customers who have rented the most films from the "customers" collection.
-10. Find all customers from the "customers" collection who have rented films with a rental duration of less than 3 days.
+-> db.customers.find({},{"Last Name":1}).sort({"Last Name":1, _id:0}).limit(10)
 
+5. Find all films from the "films" collection with a length greater than 120 minutes.
+
+	// before trying plz convert length into integer cause length is in string.
+
+	var cursor = db.films.find({ Length: { $type: "string" } });
+
+	cursor.forEach(function(doc)
+	{
+		if (!isNaN(doc.Length))
+		{
+			var numericValue = parseInt(doc.Length);
+			db.films.updateOne({ _id: doc._id }, { $set: { Length: numericValue }});
+		}
+		else
+		{
+			print("Field cannot be converted to a number: " + doc._id);
+		}
+	});
+
+-> sakila> db.films.find({Length:{$gt:120}},{Title:1,Length:1,_id:0})
+
+6. Find all customers from the "customers" collection who have rented a film with a replacement cost greater than $5.
+-> db.customers.find({ "Rentals": { "$elemMatch": { "Payments.Amount": { "$gt": 5 } } } })
+
+7. Find the total number of films in the "films" collection.
+-> db.films.find().count()
+
+8. Find all films from the "films" collection where the description contains the word "china" and the rating is "R".
+-> db.films.find({$and : [ {Description : {$regex : /china/i}} , {Rating : "R"}]})
+
+9. Find the top 5 customers who have rented the most films from the "customers" collection.
+-> db.customers.find().sort({"Rentals":-1}).limit(5)
+
+10. Find all customers from the "customers" collection who have rented films with a rental duration of less than 50 days.
+
+	var cursor = db.films.find({ "Rental Duration": { $type: "string" } });
+	cursor.forEach(function(doc)
+	{
+		if (!isNaN(doc.Length))
+		{
+			var numericValue = parseInt(doc.Length);
+			db.films.updateOne({ _id: doc._id }, { $set: { "Rental Duration": numericValue }});
+		}
+		else
+		{
+			print("Field cannot be converted to a number: " + doc._id);
+		}
+	});
+
+->  db.films.find({"Rental Duration":{$lt:50}})
 **Hard Level Questions:**
 
 11. Find the average length of films in the "films" collection.

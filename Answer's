@@ -1,5 +1,3 @@
-**Medium Level Questions:**
-
 1. Retrieve all documents from the "customers" collection.
 -> db.customers.find();
 
@@ -33,7 +31,7 @@
 
 -> sakila> db.films.find({Length:{$gt:120}},{Title:1,Length:1,_id:0})
 
-6. Find all customers from the "customers" collection who have rented a film with a replacement cost greater than $5.
+6. Find all customers from the "customers" collection who have rented a film with amount is greater than $5.
 -> db.customers.find({ "Rentals": { "$elemMatch": { "Payments.Amount": { "$gt": 5 } } } })
 
 7. Find the total number of films in the "films" collection.
@@ -62,15 +60,21 @@
 	});
 
 ->  db.films.find({"Rental Duration":{$lt:50}})
-**Hard Level Questions:**
 
-11. Find the average length of films in the "films" collection.
-12. Find all customers from the "customers" collection who have rented films from the "Comedy" category and the "PG" rating.
-13. Find all films from the "films" collection where at least one actor has the first name "Tom" or "John".
-14. Find the total number of unique cities represented in the "customers" collection.
-15. Find the 3rd and 4th oldest films from the "films" collection, sorted by their release year.
-16. Find all customers from the "customers" collection who have not rented any films.
-17. Find all films from the "films" collection where the special feature "Deleted Scenes" is included.
-18. Find all customers from the "customers" collection who have rented films with a rental duration of exactly 7 days and a rating of "G".
-19. Find the average replacement cost of films in the "films" collection with a length greater than 90 minutes.
-20. Find all films from the "films" collection where the description matches a pattern that starts with "Action" and ends with "thriller".
+11. Find all films from the "films" collection where category is "Comedy" and the "PG" rating.
+-> db.films.find({$and:[{Category:"Comedy"},{Rating:"PG"}]})
+
+12. Find all films from the "films" collection where at least one actor has the first name "Tom" or "John".
+-> db.films.find({Actors:{$elemMatch:{"First name":{$in:["TOM","JOHN"]}}}})
+
+13. Find all customers from the "customers" collection who have not rented any films.
+-> db.customers.find({ Rentals: { $exists: true, $eq:[ ] } })
+
+14. Find all films from the "films" collection where the special feature "Deleted Scenes" is included.
+-> db.films.find({"Special Features": {$regex:/Deleted Scenes/i}})
+
+15. Find all films from the "films" collection where rental duration is exactly 50 days and a rating is "G".
+-> db.films.find({$and:[{"Rental Duration":{$eq:50}},{Rating:"G"}]})
+
+16. Find all films from the "films" collection where the description matches a pattern that starts with "A Action" and ends with "house".
+-> db.films.find({ Description: { $regex: /^A Action.*house$/i } })

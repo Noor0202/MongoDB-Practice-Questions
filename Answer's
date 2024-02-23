@@ -31,8 +31,20 @@
 
 -> sakila> db.films.find({Length:{$gt:120}},{Title:1,Length:1,_id:0})
 
-6. Find all customers from the "customers" collection who have rented a film with amount is greater than $5.
--> db.customers.find({ "Rentals": { "$elemMatch": { "Payments.Amount": { "$gt": 5 } } } })
+6. Find all customers from the "customers" collection who have rented a film with amount is greater than $11.
+->	db.customers.aggregate
+	([
+  		{
+    			$unwind: "$Rentals"
+  		},
+  		{
+    			$match: {"Rentals.Payments.Amount": { $gt: 11 }}
+  		},
+  		{
+    			$project: {_id: 1,Address: 1,City: 1,Country: 1,"Rentals.Payments.Amount": 1}
+  		}
+	])
+
 
 7. Find the total number of films in the "films" collection.
 -> db.films.find().count()
@@ -41,7 +53,19 @@
 -> db.films.find({$and : [ {Description : {$regex : /china/i}} , {Rating : "R"}]})
 
 9. Find the top 5 customers who have rented the most films from the "customers" collection.
--> db.customers.find().sort({"Rentals":-1}).limit(5)
+->	db.customers.aggregate
+	([
+  		{
+    			$project: {_id: 1,numRentals: { $size: "$Rentals" }}
+  		},
+  		{
+    			$sort: { numRentals: -1 }
+  		},
+  		{
+  			$limit: 5
+  		}	
+	])
+
 
 10. Find all customers from the "customers" collection who have rented films with a rental duration of less than 50 days.
 

@@ -32,19 +32,7 @@
 -> sakila> db.films.find({Length:{$gt:120}},{Title:1,Length:1,_id:0})
 
 6. Find all customers from the "customers" collection who have rented a film with amount is greater than $11.
-->	db.customers.aggregate
-	([
-  		{
-    			$unwind: "$Rentals"
-  		},
-  		{
-    			$match: {"Rentals.Payments.Amount": { $gt: 11 }}
-  		},
-  		{
-    			$project: {_id: 1,Address: 1,City: 1,Country: 1,"Rentals.Payments.Amount": 1}
-  		}
-	])
-
+-> db.customers.aggregate([{$unwind: "$Rentals"},{$match: {"Rentals.Payments.Amount": { $gt: 11 }}},{$project: {_id: 1,Address: 1,City: 1,Country: 1,"Rentals.Payments.Amount": 1}}])
 
 7. Find the total number of films in the "films" collection.
 -> db.films.find().count()
@@ -53,21 +41,11 @@
 -> db.films.find({$and : [ {Description : {$regex : /china/i}} , {Rating : "R"}]})
 
 9. Find the top 5 customers who have rented the most films from the "customers" collection.
-->	db.customers.aggregate
-	([
-  		{
-    			$project: {_id: 1,numRentals: { $size: "$Rentals" }}
-  		},
-  		{
-    			$sort: { numRentals: -1 }
-  		},
-  		{
-  			$limit: 5
-  		}	
-	])
-
+-> db.customers.aggregate([{$project: {_id: 1,numRentals: { $size: "$Rentals" }}},{$sort: { numRentals: -1 }},{$limit: 5}])
 
 10. Find all customers from the "customers" collection who have rented films with a rental duration of less than 50 days.
+
+        // before trying plz convert rental duration into integer cause rental duration is in string.
 
 	var cursor = db.films.find({ "Rental Duration": { $type: "string" } });
 	cursor.forEach(function(doc)
@@ -102,3 +80,59 @@
 
 16. Find all films from the "films" collection where the description matches a pattern that starts with "A Action" and ends with "house".
 -> db.films.find({ Description: { $regex: /^A Action.*house$/i } })
+
+17. Insert a new document into the "customers" collection with the following information: Name: "John Doe", Address: "123 Main St", City: "New York", Phone: "555-1234".
+-> db.customers.insertOne({Name: "John Doe", Address: "123 Main St", City: "New York", Phone: "555-1234"})
+
+18. Increment the Amount of the customer with the "Film Title": "BEDAZZLED MARRIED", by 10.
+-> db.customers.updateMany( { "Rentals.Film Title": "BEDAZZLED MARRIED" }, { $inc: { "Rentals.$[].Payments.$[].Amount": 10 } } )
+
+19. Remove the "City" field from all documents in the "customers" collection where the address contains the word "Street"
+-> db.customers.updateOne({Address:{$regex:/Street/i}},{$unset:{City:1}})
+
+20. Create a compound index on the "last_name" and "first_name" fields in the "customers" collection.
+-> db.customers.createIndex({"First Name":1,"Last Name":1})
+
+21. Delete all documents from the "films" collection with a rating of "NC-17".
+-> db.films.deleteOne({Rating: "NC-17"})
+
+22. Add a new field called "release_year" to all documents in the "films" collection, setting its value to the current year
+-> db.films.updateMany({},{$set:{release_year: new Date().getFullYear()}})
+
+23. Find all documents in the "customers" collection where the phone number starts with "558".
+-> db.customers.find({Phone: {$regex: /^558\d*/}})
+
+24. Rename the field "Description" to "Plot" in all documents in the "films" collection.
+-> db.films.updateMany({},{$rename:{"Description":"Plot"}})
+
+25. Find all documents in the "films" collection where the "actors" array contains at least one actor with the last name "DEPP".
+-> db.films.find({Actors:{$elemMatch:{"Last name":"DEPP"}}},{"Actors.Last name":1})
+-> db.films.aggregate([ {$match:{ "Actors.Last name":"DEPP"}},{$project:{"Actors.Last name":1}}])
+
+26. Create a text index on the "Plot" field in the "films" collection with a weight of 2.
+-> db.films.createIndex({Plot:"text"},{weights:{Plot:2}})
+
+27. Find the average length of films in the "films" collection, rounded to the nearest whole number.
+->  db.films.aggregate([{$group:{_id:null,Avg_Length:{$avg:"$Length"}}},{$project:{_id: 0,Average_Length:{$round:["$Avg_Length"]}}}])
+
+28. Sort all documents in the "customers" collection by the number of rentals in descending order.
+->  db.customers.aggregate([ {$project:{Rental_count:{$size:"$Rentals"}}},{$sort:{Rental_count:-1}}])
+
+29. Find the total number of unique actors across all documents in the "films" collection.
+->  db.films.aggregate([{$unwind:"$Actors"},{$group:{_id:"$Actors.actorId"}},{$count:"Count of Unique Actors"}])
+->  db.films.aggregate([{$unwind:"$Actors"},{$group:{_id:"$Actors.actorId",count:{$sum:1}}}])
+
+30. Limit the results of a find operation on the "customers" collection to 10 documents, skipping the first 5 documents.
+->  db.customers.find().skip(5).limit(10)
+
+31. Find all documents in the "films" collection where the "Category" are "Action" and "Comedy".
+->  db.films.find({Category:{$in:["Action","Comedy"]}})
+
+32. Update all documents in the "customers" collection, adding the field "loyalty_points" with an initial value of 0.
+->  db.customers.updateMany({},{$set:{loyalty_points:0}})
+
+33. Find the top 5 customers who have the highest total rental payments in the "customers" collection.
+->  db.customers.aggregate([{$unwind:"$Rentals"},{$unwind:"$Rentals.Payments"},{$group:{_id:"$_id",totalRentalPayments:{$sum:"$Rentals.Payments.Amount"}}},{$sort:{totalRentalPayments:-1}},{$limit:5}])
+
+34. Aggregate the total rental payments for each customer in the "customers" collection, sorting the results in descending order by total payment amount.
+->  db.customers.aggregate([{$unwind:"$Rentals"},{$unwind:"$Rentals.Payments"},{$group:{_id:"$_id",totalRentalPayments:{$sum:"$Rentals.Payments.Amount"}}},{$sort:{totalRentalPayments:-1}},{$project:{totalRentalPayments:{$round:["$totalRentalPayments"]}}}])

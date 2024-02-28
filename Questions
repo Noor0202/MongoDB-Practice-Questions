@@ -3,7 +3,7 @@
 3. Find all films from the "films" collection with a rating of "PG-13".
 4. Find the first 10 customers from the "customers" collection, sorted by their last name in ascending order.
 5. Find all films from the "films" collection with a length greater than 120 minutes.
-6. Find all customers from the "customers" collection who have rented a film with amount is greater than $5.
+6. Find all customers from the "customers" collection who have rented a film with amount is greater than $11.
 7. Find the total number of films in the "films" collection.
 8. Find all films from the "films" collection where the description contains the word "china" and the rating is "R".
 9. Find the top 5 customers who have rented the most films from the "customers" collection.
@@ -14,3 +14,44 @@
 14. Find all films from the "films" collection where the special feature "Deleted Scenes" is included.
 15. Find all films from the "films" collection where rental duration is exactly 50 days and a rating is "G".
 16. Find all films from the "films" collection where the description matches a pattern that starts with "A Action" and ends with "house".
+17. Insert a new document into the "customers" collection with the following information: Name: "John Doe", Address: "123 Main St", City: "New York", Phone: "555-1234".
+18. Increment the Amount of the customer with the "Film Title": "BEDAZZLED MARRIED", by 10.
+19. Remove the "City" field from all documents in the "customers" collection where the address contains the word "Street"
+20. Create a compound index on the "last_name" and "first_name" fields in the "customers" collection.
+21. Delete all documents from the "films" collection with a rating of "NC-17".
+22. Add a new field called "release_year" to all documents in the "films" collection, setting its value to the current year
+23. Find all documents in the "customers" collection where the phone number starts with "558".
+24. Rename the field "Description" to "Plot" in all documents in the "films" collection.
+25. Find all documents in the "films" collection where the "actors" array contains at least one actor with the last name "DEPP".
+26. Create a text index on the "Plot" field in the "films" collection with a weight of 2.
+27. Find the average length of films in the "films" collection, rounded to the nearest whole number.
+28. Sort all documents in the "customers" collection by the number of rentals in descending order.
+29. Find the total number of unique actors across all documents in the "films" collection.
+30. Limit the results of a find operation on the "customers" collection to 10 documents, skipping the first 5 documents.
+31. Find all documents in the "films" collection where the "Category" are "Action" and "Comedy".
+32. Update all documents in the "customers" collection, adding the field "loyalty_points" with an initial value of 0.
+33. Find the top 5 customers who have the highest total rental payments in the "customers" collection.
+34. Aggregate the total rental payments for each customer in the "customers" collection, sorting the results in descending order by total payment amount.
+35. Find all films from the "films" collection where the length is between 90 and 120 minutes.
+36. Update the "Rating" field of the film titled "The Matrix" in the "films" collection to "PG-13".
+37. Remove the "actors" field from all documents in the "films" collection where the release year is before 2000.
+48. Create a unique index on the "email" field in the "customers" collection.
+49. Delete all documents from the "customers" collection where the "loyalty_points" field is less than 100.
+40. Increment the "loyalty_points" field by 50 for all documents in the "customers" collection where the "total_rentals" field is greater than 10.
+41. Find all films from the "films" collection where the "actors" array contains at least one actor with the first name "Tom" and the last name "Cruise".
+42. Create a text index on the "Description" field in the "films" collection with a weight of 3.
+43. Find the average replacement cost of films in the "films" collection with a rating of "R".
+44. Update the "City" field of all documents in the "customers" collection where the "State" field is "NY" to "New York City".
+45. Find the total number of unique actors across all documents in the "films" collection.
+46. Sort all documents in the "customers" collection by the "total_rentals" field in descending order and return only the first 10 documents.
+47. Find all documents in the "films" collection where the "genres" array contains both "Action" and "Adventure" genres.
+48. Delete all documents from the "films" collection where the "Release Date" is before January 1, 2010.
+49. Update the "total_rentals" field of the customer with the highest "loyalty_points" in the "customers" collection to 50.
+50. Find all films from the "films" collection where the "Title" field starts with the letter "A" and ends with the letter "Z".
+51. Find the average length of films in the "films" collection, rounded to the nearest whole number.
+52. Remove the "Director" field from all documents in the "films" collection where the "Director" field is empty.
+53. Find the top 5 customers who have the highest total rental payments in the "customers" collection.
+54. Aggregate the total rental payments for each customer in the "customers" collection, sorting the results in descending order by total payment amount.
+55. Add an array field called "genres" to the "films" collection and populate it with unique genre names extracted from the "Category" field.
+56. Add an array field called "genres" to the "films" collection and populate it with unique genre names extracted from the "Category" field.
+57. Delete all documents from the "customers" collection where the last rental date is older than one year.

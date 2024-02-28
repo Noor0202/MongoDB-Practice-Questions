@@ -6,18 +6,15 @@ Welcome to the MongoDB Practice repository! This compilation of MongoDB queries 
 
 ### Download JSON Data:
 - Download the Sakila sample database converted to JSON format. This dataset contains three collections mirroring the MySQL Sakila database.
+- **Note:** You can find the Sakila sample database in the file named Sample Dataset (Sakila).zip. Within this file, there are three collections: customers, films, and stores. Unzip it and save it wherever you prefer before proceeding to the next step.
 
 ### Import JSON Data into MongoDB:
 - After downloading the JSON files, import them into your MongoDB database using the `mongoimport` command.
-
-### Create a Database:
-- Use the following query to create a database named "sakila" in MongoDB:
 
 ### MongoDB Import Query:
 - Use the following `mongoimport` command to import the JSON files into your MongoDB database:
 - mongoimport --file "your file path with extra \ " -d database_name -c collection_name --jsonArray
 - eg - mongoimport --file "C:\\abcd\\efg\\hij\\klm\\nop\\qrst\\uvw\\customers.json" -d sample -c customers --jsonArray
-
 
 ### Explore the Questions:
 - Navigate through the questions directory to find a variety of MongoDB practice questions categorized by topics.

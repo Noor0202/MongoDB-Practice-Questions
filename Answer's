@@ -1,5 +1,3 @@
-**Medium Level Questions:**
-
 1. Retrieve all documents from the "customers" collection.
 -> db.customers.find();
 

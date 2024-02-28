@@ -15,7 +15,8 @@ Welcome to the MongoDB Practice repository! This compilation of MongoDB queries 
 
 ### MongoDB Import Query:
 - Use the following `mongoimport` command to import the JSON files into your MongoDB database:
-    mongoimport --db sakila --collection <collection_name> --file <path_to_json_file> --jsonArra
+      mongoimport --file "your file path with extra \ " -d database_name -c collection_name --jsonArray
+  eg - mongoimport --file "C:\\abcd\\efg\\hij\\klm\\nop\\qrst\\uvw\\customers.json" -d sample -c customers --jsonArray
 
 
 ### Explore the Questions:

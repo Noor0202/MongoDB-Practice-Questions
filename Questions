@@ -35,8 +35,8 @@
 35. Find all films from the "films" collection where the length is between 90 and 120 minutes.
 36. Update the "Rating" field of the film titled "The Matrix" in the "films" collection to "PG-13".
 37. Remove the "actors" field from all documents in the "films" collection where the release year is before 2000.
-48. Create a unique index on the "email" field in the "customers" collection.
-49. Delete all documents from the "customers" collection where the "loyalty_points" field is less than 100.
+38. Create a unique index on the "email" field in the "customers" collection.
+39. Delete all documents from the "customers" collection where the "loyalty_points" field is less than 100.
 40. Increment the "loyalty_points" field by 50 for all documents in the "customers" collection where the "total_rentals" field is greater than 10.
 41. Find all films from the "films" collection where the "actors" array contains at least one actor with the first name "Tom" and the last name "Cruise".
 42. Create a text index on the "Description" field in the "films" collection with a weight of 3.
